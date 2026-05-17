@@ -1,73 +1,93 @@
-# React + TypeScript + Vite
+# Cooking Recipes Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React TypeScript SPA application for managing cooking recipes and users.  
+The project uses React Router for client-side routing and json-server as a mock REST API backend.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Users
 
-## React Compiler
+- Register new user
+- Login user
+- Logout user
+- Store authenticated user in `sessionStorage`
+- View all users
+- Edit user
+- Delete user
+- Admin-only access to users management page
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Recipes
 
-## Expanding the ESLint configuration
+- Create recipe from the currently logged-in user
+- View latest published recipes
+- Filter recipes by tag
+- Filter recipes by author
+- Sort recipes by publish date
+- View recipe details
+- Edit recipe
+- Delete recipe
+- Manage all recipes from a separate management page
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Access Rules
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Guest users can view home, recipes, login and register pages
+- Logged-in users can create recipes
+- Logged-in users can manage their own recipes
+- Admin users can manage all recipes and users
+- Normal users cannot access the users management page
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Technologies
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React
+- TypeScript
+- React Router
+- Vite
+- json-server
+- Fetch API
+- CSS
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```txt
+src/
+  api/
+    config.ts
+    usersApi.ts
+    recipesApi.ts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  components/
+    Layout.tsx
+    ProtectedRoute.tsx
+    AdminRoute.tsx
+    LoginForm.tsx
+    RegisterForm.tsx
+    RecipeForm.tsx
+    RecipesList.tsx
+    RecipeDetails.tsx
+    AllRecipesList.tsx
+    UsersList.tsx
+    UserForm.tsx
+
+  pages/
+    HomePage.tsx
+    LoginPage.tsx
+    RegisterPage.tsx
+    RecipesPage.tsx
+    RecipeCreatePage.tsx
+    RecipeDetailsPage.tsx
+    RecipeEditPage.tsx
+    RecipesManagePage.tsx
+    UsersPage.tsx
+    UserEditPage.tsx
+    NotFoundPage.tsx
+
+  routes/
+    AppRoutes.tsx
+
+  types/
+    user.ts
+    recipe.ts
+
+  utils/
+    authStorage.ts
+    generateId.ts
