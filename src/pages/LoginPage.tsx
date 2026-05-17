@@ -1,8 +1,10 @@
+import LoginForm from "../components/LoginForm";
+
 const LoginPage = () => {
   return (
-    <section>
+    <section className="page-card">
       <h1>Login</h1>
-      <p>Login form will be added here.</p>
+      <LoginForm />
     </section>
   );
 };
