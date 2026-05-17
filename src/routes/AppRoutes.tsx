@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "../components/Layout";
 import ProtectedRoute from "../components/ProtectedRoute";
+import AdminRoute from "../components/AdminRoute";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
@@ -55,12 +56,17 @@ const router = createBrowserRouter([
             element: <RecipeEditPage />,
           },
           {
-            path: "users",
-            element: <UsersPage />,
-          },
-          {
-            path: "users/:id/edit",
-            element: <UserEditPage />,
+            element: <AdminRoute />,
+            children: [
+              {
+                path: "users",
+                element: <UsersPage />,
+              },
+              {
+                path: "users/:id/edit",
+                element: <UserEditPage />,
+              },
+            ],
           },
         ],
       },

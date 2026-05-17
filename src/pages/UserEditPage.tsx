@@ -1,68 +1,56 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import RecipeForm from "../components/RecipeForm";
-import { getRecipeById } from "../api/recipesApi";
-import type { Recipe } from "../types/recipe";
-import { getAuthUser } from "../utils/authStorage";
+import { useParams } from "react-router-dom";
+import UserForm from "../components/UserForm";
+import { getUserById } from "../api/usersApi";
+import type { User } from "../types/user";
 
-const RecipeEditPage = () => {
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+const UserEditPage = () => {
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const loadRecipe = async () => {
+    const loadUser = async () => {
       if (!id) {
-        setError("Recipe id is missing");
+        setError("User id is missing");
         setIsLoading(false);
         return;
       }
 
       try {
-        const recipeData = await getRecipeById(id);
-        const authUser = getAuthUser();
+        const userData = await getUserById(id);
 
-        const canEditRecipe =
-          authUser &&
-          (authUser.id === recipeData.userId || authUser.role === "admin");
-
-        if (!canEditRecipe) {
-          navigate("/recipes");
-          return;
-        }
-
-        setRecipe(recipeData);
+        setUser(userData);
       } catch {
-        setError("Failed to load recipe");
+        setError("Failed to load user");
       } finally {
         setIsLoading(false);
       }
     };
 
-    void loadRecipe();
-  }, [id, navigate]);
+    void loadUser();
+  }, [id]);
 
   if (isLoading) {
-    return <p>Loading recipe...</p>;
+    return <p>Loading user...</p>;
   }
 
   if (error) {
     return <p className="error-message">{error}</p>;
   }
 
-  if (!recipe) {
-    return <p>Recipe not found.</p>;
+  if (!user) {
+    return <p>User not found.</p>;
   }
 
   return (
     <section className="page-card">
-      <h1>Edit Recipe</h1>
-      <RecipeForm recipe={recipe} mode="edit" />
+      <h1>Edit User</h1>
+      <UserForm user={user} />
     </section>
   );
 };
 
-export default RecipeEditPage;
+export default UserEditPage;
