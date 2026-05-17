@@ -265,7 +265,7 @@ textarea {
 
 .details-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
   margin-bottom: 24px;
@@ -314,6 +314,15 @@ textarea {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.actions-row .primary-button,
+.actions-row .danger-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin-top: 0;
 }
 
 .danger-button {
