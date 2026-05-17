@@ -1,19 +1,88 @@
 {
   "users": [
     {
-      "id": "X1bSaozb6hI",
+      "id": "u1",
       "name": "Ivan Ivanov",
       "username": "ivan123",
       "password": "pass123!",
       "gender": "male",
       "role": "admin",
-      "avatarUrl": "test",
-      "shortDescription": "test",
+      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "shortDescription": "Admin user who loves cooking.",
       "status": "active",
-      "createdAt": "2026-05-17T21:06:21.233Z",
-      "updatedAt": "2026-05-17T21:18:03.220Z"
+      "createdAt": "2026-05-01T10:00:00.000Z",
+      "updatedAt": "2026-05-01T10:00:00.000Z"
+    },
+    {
+      "id": "u2",
+      "name": "Maria Petrova",
+      "username": "maria123",
+      "password": "pass123!",
+      "gender": "female",
+      "role": "user",
+      "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      "shortDescription": "Home cook and recipe creator.",
+      "status": "active",
+      "createdAt": "2026-05-02T12:00:00.000Z",
+      "updatedAt": "2026-05-02T12:00:00.000Z"
     }
   ],
-  "recipes": [],
-  "$schema": "./node_modules/json-server/schema.json"
+  "recipes": [
+    {
+      "id": "r1",
+      "userId": "u1",
+      "title": "Homemade Pancakes",
+      "summary": "Easy pancakes for breakfast.",
+      "preparationTime": 20,
+      "products": ["eggs", "milk", "flour", "sugar"],
+      "imageUrl": "https://images.unsplash.com/photo-1528207776546-365bb710ee93",
+      "description": "Mix the eggs, milk, flour and sugar. Cook the pancakes in a hot pan until golden.",
+      "tags": ["breakfast", "sweet", "easy"],
+      "status": "active",
+      "createdAt": "2026-05-10T08:00:00.000Z",
+      "updatedAt": "2026-05-10T08:00:00.000Z"
+    },
+    {
+      "id": "r2",
+      "userId": "u2",
+      "title": "Fresh Caprese Salad",
+      "summary": "Light salad with tomato, mozzarella and basil.",
+      "preparationTime": 10,
+      "products": ["tomatoes", "mozzarella", "basil", "olive oil"],
+      "imageUrl": "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5",
+      "description": "Slice the tomatoes and mozzarella. Add basil, olive oil and a little salt.",
+      "tags": ["salad", "healthy", "quick"],
+      "status": "active",
+      "createdAt": "2026-05-11T11:30:00.000Z",
+      "updatedAt": "2026-05-11T11:30:00.000Z"
+    },
+    {
+      "id": "r3",
+      "userId": "u1",
+      "title": "Chicken Rice Bowl",
+      "summary": "Simple chicken with rice and vegetables.",
+      "preparationTime": 35,
+      "products": ["chicken", "rice", "carrots", "peas"],
+      "imageUrl": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+      "description": "Cook the rice. Fry the chicken and vegetables. Serve together in a bowl.",
+      "tags": ["lunch", "protein", "healthy"],
+      "status": "active",
+      "createdAt": "2026-05-12T13:15:00.000Z",
+      "updatedAt": "2026-05-12T13:15:00.000Z"
+    },
+    {
+      "id": "r4",
+      "userId": "u2",
+      "title": "Chocolate Dessert",
+      "summary": "Sweet chocolate dessert for special moments.",
+      "preparationTime": 45,
+      "products": ["chocolate", "butter", "eggs", "flour"],
+      "imageUrl": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c",
+      "description": "Melt the chocolate and butter. Mix with eggs and flour. Bake until ready.",
+      "tags": ["dessert", "sweet", "chocolate"],
+      "status": "active",
+      "createdAt": "2026-05-13T18:40:00.000Z",
+      "updatedAt": "2026-05-13T18:40:00.000Z"
+    }
+  ]
 }

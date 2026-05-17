@@ -19,6 +19,7 @@ const Layout = () => {
           <Link to="/">Home</Link>
           <Link to="/recipes">Recipes</Link>
           <Link to="/recipes/new">Add Recipe</Link>
+          <Link to="/recipes/manage">Manage Recipes</Link>
           <Link to="/users">Users</Link>
 
           {!authUser && <Link to="/login">Login</Link>}

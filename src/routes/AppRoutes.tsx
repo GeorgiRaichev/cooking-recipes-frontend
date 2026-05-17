@@ -8,6 +8,7 @@ import RecipesPage from "../pages/RecipesPage";
 import RecipeCreatePage from "../pages/RecipeCreatePage";
 import RecipeDetailsPage from "../pages/RecipeDetailsPage";
 import RecipeEditPage from "../pages/RecipeEditPage";
+import RecipesManagePage from "../pages/RecipesManagePage";
 import UsersPage from "../pages/UsersPage";
 import UserEditPage from "../pages/UserEditPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           {
             path: "recipes/new",
             element: <RecipeCreatePage />,
+          },
+          {
+            path: "recipes/manage",
+            element: <RecipesManagePage />,
           },
           {
             path: "recipes/:id/edit",
