@@ -1,8 +1,10 @@
+import UsersList from "../components/UsersList";
+
 const UsersPage = () => {
   return (
     <section>
       <h1>Users</h1>
-      <p>Users list will be added here.</p>
+      <UsersList />
     </section>
   );
 };
