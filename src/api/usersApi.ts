@@ -78,3 +78,33 @@ export const deleteUser = async (id: string): Promise<void> => {
     throw new Error("Failed to delete user");
   }
 };
+
+export const loginUser = async (
+  username: string,
+  password: string,
+): Promise<User> => {
+  const encodedUsername = encodeURIComponent(username);
+  const encodedPassword = encodeURIComponent(password);
+
+  const response = await fetch(
+    `${API_BASE_URL}/users?username=${encodedUsername}&password=${encodedPassword}`,
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to login");
+  }
+
+  const users = (await response.json()) as User[];
+
+  const user = users[0];
+
+  if (!user) {
+    throw new Error("Invalid username or password");
+  }
+
+  if (user.status !== "active") {
+    throw new Error("User account is not active");
+  }
+
+  return user;
+};
