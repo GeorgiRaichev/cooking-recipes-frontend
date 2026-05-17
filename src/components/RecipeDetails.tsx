@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getRecipeById } from "../api/recipesApi";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { deleteRecipe, getRecipeById } from "../api/recipesApi";
 import { getUserById } from "../api/usersApi";
 import type { Recipe } from "../types/recipe";
 import type { User } from "../types/user";
@@ -11,8 +11,10 @@ const RecipeDetails = () => {
   const [author, setAuthor] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { id } = useParams();
+  const navigate = useNavigate();
   const authUser = getAuthUser();
 
   useEffect(() => {
@@ -39,6 +41,31 @@ const RecipeDetails = () => {
     loadRecipe();
   }, [id]);
 
+  const handleDelete = async () => {
+    if (!recipe) {
+      return;
+    }
+
+    const shouldDelete = confirm(
+      "Are you sure you want to delete this recipe?",
+    );
+
+    if (!shouldDelete) {
+      return;
+    }
+
+    setIsDeleting(true);
+
+    try {
+      await deleteRecipe(recipe.id);
+      navigate("/recipes");
+    } catch {
+      setError("Failed to delete recipe");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   if (isLoading) {
     return <p>Loading recipe...</p>;
   }
@@ -51,6 +78,8 @@ const RecipeDetails = () => {
     return <p>Recipe not found.</p>;
   }
 
+  const canManageRecipe = authUser?.id === recipe.userId;
+
   return (
     <article className="details-card">
       <img className="details-image" src={recipe.imageUrl} alt={recipe.title} />
@@ -62,10 +91,24 @@ const RecipeDetails = () => {
             <p>{recipe.summary}</p>
           </div>
 
-          {authUser?.id === recipe.userId && (
-            <Link className="primary-button" to={`/recipes/${recipe.id}/edit`}>
-              Edit recipe
-            </Link>
+          {canManageRecipe && (
+            <div className="actions-row">
+              <Link
+                className="primary-button"
+                to={`/recipes/${recipe.id}/edit`}
+              >
+                Edit recipe
+              </Link>
+
+              <button
+                className="danger-button"
+                type="button"
+                onClick={handleDelete}
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete recipe"}
+              </button>
+            </div>
           )}
         </div>
 

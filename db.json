@@ -25,13 +25,13 @@
         "test"
       ],
       "imageUrl": "test",
-      "description": "test",
+      "description": "oop",
       "tags": [
         "test"
       ],
       "status": "active",
       "createdAt": "2026-05-17T21:08:31.579Z",
-      "updatedAt": "2026-05-17T21:08:31.579Z"
+      "updatedAt": "2026-05-17T21:12:17.778Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
