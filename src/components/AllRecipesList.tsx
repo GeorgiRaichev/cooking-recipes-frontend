@@ -4,12 +4,15 @@ import { deleteRecipe, getRecipes } from "../api/recipesApi";
 import { getUsers } from "../api/usersApi";
 import type { Recipe } from "../types/recipe";
 import type { User } from "../types/user";
+import { getAuthUser } from "../utils/authStorage";
 
 const AllRecipesList = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const authUser = getAuthUser();
 
   useEffect(() => {
     const loadData = async () => {
@@ -37,7 +40,16 @@ const AllRecipesList = () => {
     return user?.name || "Unknown author";
   };
 
-  const handleDelete = async (id: string) => {
+  const canManageRecipe = (recipe: Recipe): boolean => {
+    return authUser?.id === recipe.userId || authUser?.role === "admin";
+  };
+
+  const handleDelete = async (recipe: Recipe) => {
+    if (!canManageRecipe(recipe)) {
+      setError("You do not have permission to delete this recipe");
+      return;
+    }
+
     const shouldDelete = confirm(
       "Are you sure you want to delete this recipe?",
     );
@@ -47,10 +59,12 @@ const AllRecipesList = () => {
     }
 
     try {
-      await deleteRecipe(id);
+      await deleteRecipe(recipe.id);
 
       setRecipes((currentRecipes) =>
-        currentRecipes.filter((recipe) => recipe.id !== id),
+        currentRecipes.filter(
+          (currentRecipe) => currentRecipe.id !== recipe.id,
+        ),
       );
     } catch {
       setError("Failed to delete recipe");
@@ -97,20 +111,24 @@ const AllRecipesList = () => {
                     View
                   </Link>
 
-                  <Link
-                    className="small-button"
-                    to={`/recipes/${recipe.id}/edit`}
-                  >
-                    Edit
-                  </Link>
+                  {canManageRecipe(recipe) && (
+                    <>
+                      <Link
+                        className="small-button"
+                        to={`/recipes/${recipe.id}/edit`}
+                      >
+                        Edit
+                      </Link>
 
-                  <button
-                    className="small-danger-button"
-                    type="button"
-                    onClick={() => handleDelete(recipe.id)}
-                  >
-                    Delete
-                  </button>
+                      <button
+                        className="small-danger-button"
+                        type="button"
+                        onClick={() => handleDelete(recipe)}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </td>
             </tr>

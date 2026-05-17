@@ -38,7 +38,7 @@ const RecipeDetails = () => {
       }
     };
 
-    loadRecipe();
+    void loadRecipe();
   }, [id]);
 
   const handleDelete = async () => {
@@ -78,7 +78,8 @@ const RecipeDetails = () => {
     return <p>Recipe not found.</p>;
   }
 
-  const canManageRecipe = authUser?.id === recipe.userId;
+  const canManageRecipe =
+    authUser?.id === recipe.userId || authUser?.role === "admin";
 
   return (
     <article className="details-card">
