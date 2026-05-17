@@ -1,8 +1,10 @@
+import RecipesList from "../components/RecipesList";
+
 const RecipesPage = () => {
   return (
     <section>
-      <h1>Recipes</h1>
-      <p>Recipes list will be added here.</p>
+      <h1>Latest Recipes</h1>
+      <RecipesList />
     </section>
   );
 };
