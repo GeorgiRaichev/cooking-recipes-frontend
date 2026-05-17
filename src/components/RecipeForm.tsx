@@ -1,9 +1,14 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { createRecipe } from "../api/recipesApi";
+import { createRecipe, updateRecipe } from "../api/recipesApi";
 import { generateId } from "../utils/generateId";
 import { getAuthUser } from "../utils/authStorage";
-import type { RecipeStatus } from "../types/recipe";
+import type { Recipe, RecipeStatus } from "../types/recipe";
+
+type RecipeFormProps = {
+  recipe?: Recipe;
+  mode?: "create" | "edit";
+};
 
 type RecipeFormData = {
   title: string;
@@ -27,8 +32,27 @@ const initialFormData: RecipeFormData = {
   status: "active",
 };
 
-const RecipeForm = () => {
-  const [formData, setFormData] = useState<RecipeFormData>(initialFormData);
+const getInitialFormData = (recipe?: Recipe): RecipeFormData => {
+  if (!recipe) {
+    return initialFormData;
+  }
+
+  return {
+    title: recipe.title,
+    summary: recipe.summary,
+    preparationTime: String(recipe.preparationTime),
+    products: recipe.products.join(", "),
+    imageUrl: recipe.imageUrl,
+    description: recipe.description,
+    tags: recipe.tags.join(", "),
+    status: recipe.status,
+  };
+};
+
+const RecipeForm = ({ recipe, mode = "create" }: RecipeFormProps) => {
+  const [formData, setFormData] = useState<RecipeFormData>(() =>
+    getInitialFormData(recipe),
+  );
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -126,6 +150,22 @@ const RecipeForm = () => {
         .map((tag) => tag.trim())
         .filter(Boolean);
 
+      if (mode === "edit" && recipe) {
+        await updateRecipe(recipe.id, {
+          title: formData.title.trim(),
+          summary: formData.summary.trim(),
+          preparationTime: Number(formData.preparationTime),
+          products,
+          imageUrl: formData.imageUrl.trim(),
+          description: formData.description.trim(),
+          tags,
+          status: formData.status,
+        });
+
+        navigate(`/recipes/${recipe.id}`);
+        return;
+      }
+
       await createRecipe({
         id: generateId(),
         userId: authUser.id,
@@ -141,7 +181,9 @@ const RecipeForm = () => {
 
       navigate("/recipes");
     } catch {
-      setError("Recipe creation failed");
+      setError(
+        mode === "edit" ? "Recipe update failed" : "Recipe creation failed",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -233,7 +275,13 @@ const RecipeForm = () => {
         </label>
 
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Creating..." : "Create Recipe"}
+          {isSubmitting
+            ? mode === "edit"
+              ? "Saving..."
+              : "Creating..."
+            : mode === "edit"
+              ? "Save Recipe"
+              : "Create Recipe"}
         </button>
       </form>
     </>
