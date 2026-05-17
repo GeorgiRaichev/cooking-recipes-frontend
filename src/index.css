@@ -243,3 +243,69 @@ textarea {
   font-size: 14px;
   font-weight: 700;
 }
+
+.details-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+}
+
+.details-image {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.details-content {
+  padding: 28px;
+}
+
+.details-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.details-header h1 {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 38px;
+}
+
+.details-header p {
+  margin: 0;
+  color: #475569;
+}
+
+.details-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 18px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.details-meta p {
+  margin: 0;
+}
+
+.details-content section {
+  margin-top: 28px;
+}
+
+.details-content h2 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.details-description {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}

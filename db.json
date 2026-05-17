@@ -14,6 +14,25 @@
       "updatedAt": "2026-05-17T21:06:21.233Z"
     }
   ],
-  "recipes": [],
+  "recipes": [
+    {
+      "id": "m9_1dnm-GMk",
+      "userId": "X1bSaozb6hI",
+      "title": "Test",
+      "summary": "Test",
+      "preparationTime": 123,
+      "products": [
+        "test"
+      ],
+      "imageUrl": "test",
+      "description": "test",
+      "tags": [
+        "test"
+      ],
+      "status": "active",
+      "createdAt": "2026-05-17T21:08:31.579Z",
+      "updatedAt": "2026-05-17T21:08:31.579Z"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

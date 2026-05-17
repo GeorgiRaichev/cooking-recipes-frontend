@@ -1,10 +1,7 @@
+import RecipeDetails from "../components/RecipeDetails";
+
 const RecipeDetailsPage = () => {
-  return (
-    <section>
-      <h1>Recipe Details</h1>
-      <p>Recipe details will be added here.</p>
-    </section>
-  );
+  return <RecipeDetails />;
 };
 
 export default RecipeDetailsPage;
