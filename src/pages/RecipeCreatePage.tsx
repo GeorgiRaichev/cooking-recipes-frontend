@@ -1,8 +1,10 @@
+import RecipeForm from "../components/RecipeForm";
+
 const RecipeCreatePage = () => {
   return (
-    <section>
+    <section className="page-card">
       <h1>Add Recipe</h1>
-      <p>Recipe create form will be added here.</p>
+      <RecipeForm />
     </section>
   );
 };

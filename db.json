@@ -1,4 +1,19 @@
 {
-  "users": [],
-  "recipes": []
+  "users": [
+    {
+      "id": "X1bSaozb6hI",
+      "name": "Ivan Ivanov",
+      "username": "ivan123",
+      "password": "pass123!",
+      "gender": "male",
+      "role": "admin",
+      "avatarUrl": "test",
+      "shortDescription": "test",
+      "status": "active",
+      "createdAt": "2026-05-17T21:06:21.233Z",
+      "updatedAt": "2026-05-17T21:06:21.233Z"
+    }
+  ],
+  "recipes": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
