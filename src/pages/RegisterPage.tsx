@@ -1,8 +1,10 @@
+import RegisterForm from "../components/RegisterForm";
+
 const RegisterPage = () => {
   return (
-    <section>
+    <section className="page-card">
       <h1>Register</h1>
-      <p>Registration form will be added here.</p>
+      <RegisterForm />
     </section>
   );
 };
